@@ -1,0 +1,129 @@
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -moz-user-select: none;
+}
+
+body {
+    background-color: cornflowerblue;
+    text-align: center;
+}
+
+.container, canvas {
+    margin: 20px;
+    border: 1px solid #fff;
+}
+
+.container {
+    display: none;
+    color: #fff;
+    width: 500px;
+    position: absolute;
+    top: 50px;
+    margin: 0 0 0 -250px;
+    left: 50%;
+    border-radius: 20px;
+    background: #008080;
+    overflow: hidden;
+}
+
+#modal {
+    height: 500px;
+}
+
+#p {
+    position: absolute;
+    display: none;
+    border: 1px solid #FFF;
+    width: 50%;
+    margin: 100px 25% 0 25%;
+    background: #aaa;
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 2;
+}
+
+#p button {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#d, #u {
+    display: none;
+    text-align: left;
+    width: 100%;
+    position: absolute;
+    overflow: visible;
+    background: #ccc;
+    color: #000;
+    height: 30px;
+}
+
+#d ul, #u ul {
+    z-index: 1;
+}
+
+#d {
+    bottom: 0;
+}
+
+#d ul {
+    bottom: 30px;
+}
+
+li, ul {
+    background: #ccc;
+    list-style-type: none;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+#p > ul, #u > ul {
+    margin: 5px 0 0 10px;
+    display: inline-block;
+}
+
+li ul {
+    display: none;
+    position: absolute;
+    border: 1px solid #FFF;
+}
+
+#modal li ul {
+    margin-top: 5px;
+}
+
+#modal > * > ul ul {
+    left: 0;
+}
+
+#modal li li {
+    padding: 10px;
+}
+
+#end_game {
+    top: 125px;
+    font-family: monospace;
+    font-size: 30px;
+    padding: 30px 0;
+    z-index: 3;
+}
+
+#end_game p {
+    margin: 0.2em 0;
+}
+
+#end_game span {
+    color: black;
+    cursor: pointer;
+    font-size: 0.8em;
+}

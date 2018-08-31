@@ -1,0 +1,195 @@
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -moz-user-select: none;
+}
+
+body {
+    background-color: cornflowerblue;
+    text-align: center;
+}
+
+#modal, canvas {
+    margin: 20px;
+    border: 1px solid #fff;
+}
+
+#modal {
+    /*display: none;*/
+    color: #fff;
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    margin-left: -250px;
+    border-radius: 20px;
+    background: #008080;
+    overflow: hidden;
+}
+
+#d, #u {
+    /*display: none;*/
+    text-align: left;
+    width: 100%;
+    position: absolute;
+    overflow: visible;
+    background: #ccc;
+    color: #000;
+    height: 30px;
+}
+
+#d {
+    bottom: 0;
+}
+
+#d ul {
+    bottom: 30px;
+}
+
+li, ul {
+    background: #ccc;
+    list-style-type: none;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+#d > ul, #u > ul {
+    margin-left: 10px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+li ul {
+    /*display: none;*/
+    position: absolute;
+    border: 1px solid #FFF;
+}
+
+#modal li ul {
+    margin-top: 5px;
+}
+
+#d ul ul, #modal ul ul {
+    left: 0;
+}
+
+#modal li li {
+    padding: 10px;
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 0.43346;
+    }
+    5% {
+        opacity: 0.00682;
+    }
+    10% {
+        opacity: 0.75401;
+    }
+    15% {
+        opacity: 0.48318;
+    }
+    20% {
+        opacity: 0.26695;
+    }
+    25% {
+        opacity: 0.89243;
+    }
+    30% {
+        opacity: 0.74393;
+    }
+    35% {
+        opacity: 0.5413;
+    }
+    40% {
+        opacity: 0.23063;
+    }
+    45% {
+        opacity: 0.61213;
+    }
+    50% {
+        opacity: 0.7044;
+    }
+    55% {
+        opacity: 0.05963;
+    }
+    60% {
+        opacity: 0.47487;
+    }
+    65% {
+        opacity: 0.82002;
+    }
+    70% {
+        opacity: 0.11019;
+    }
+    75% {
+        opacity: 0.30278;
+    }
+    80% {
+        opacity: 0.27923;
+    }
+    85% {
+        opacity: 0.98928;
+    }
+    90% {
+        opacity: 0.74579;
+    }
+    95% {
+        opacity: 0.67768;
+    }
+    100% {
+        opacity: 0.83194;
+    }
+}
+
+.container::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.3));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+@keyframes turn-off {
+    60% {
+        transform: scale(1, 0.001) translate3d(0, 0, 0);
+        -webkit-filter: brightness(2);
+        filter: brightness(2);
+    }
+    100% {
+        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        transform: scale(0, 0.0001) translate3d(0, 0, 0);
+        -webkit-filter: brightness(3);
+        filter: brightness(3);
+    }
+}
+
+@keyframes infected {
+
+}
+
+.container.turn-off {
+    animation: turn-off 1s linear;
+    animation-fill-mode: forwards;
+}
+
+.container.infected {
+    animation: turn-off 1s linear;
+    animation-fill-mode: forwards;
+}
