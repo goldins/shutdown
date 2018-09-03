@@ -87,7 +87,7 @@ li, ul {
     margin: 0;
 }
 
-#p > ul, #u > ul {
+#d > ul, #u > ul {
     margin: 5px 0 0 10px;
     display: inline-block;
 }

@@ -7,6 +7,7 @@ let s = 40;
 let xy = {};
 
 const popup = document.getElementById('modal');
+const origPopupClasses = popup.className;
 const starts = Array.from(document.getElementsByClassName('start'));
 const shutdowns = Array.from(document.getElementsByClassName('shutdown'));
 
@@ -111,6 +112,7 @@ const makeTimer = (m) => {
  * @param {ComputerMeta} m
  */
 const showPopup = (m) => {
+  popup.className = origPopupClasses;
   popup.style.display = 'block';
   const oneStart = starts[Math.floor(Math.random() * starts.length)];
   oneStart.parentNode.parentNode.style.display = 'block';
@@ -216,11 +218,11 @@ function addVariantChildren(okFirst) {
  */
 const hidePopup = (m, success) => {
   if (interval !== null) {
+    console.log('clearing interval', interval);
     clearInterval(interval);
     interval = null;
   }
   shutdowns.forEach(shutdown => shutdown.parentNode.style.display = 'none');
-  const origClasses = popup.className;
   if (success === false) {
     popup.classList.add('infected');
   } else {
@@ -232,7 +234,7 @@ const hidePopup = (m, success) => {
       oneStart.parentNode.parentNode.style.display = 'none';
     });
     popup.style.display = 'none';
-    popup.className = origClasses;
+    popup.className = origPopupClasses;
     hideVariant();
   }, 1000);
 
