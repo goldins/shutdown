@@ -115,12 +115,14 @@ const showPopup = (m) => {
   const oneStart = starts[Math.floor(Math.random() * starts.length)];
   oneStart.parentNode.parentNode.style.display = 'block';
   const shutdown = oneStart.querySelector('.shutdown');
-  const closeSuccessFn = () => {
+  function closeSuccessFn(event) {
+    event.stopPropagation();
     hidePopup(m, true);
-  };
+  }
 
   cancelBtn.innerText = 'Cancel';
-  cancelBtn.onclick = () => {
+  cancelBtn.onclick = (event) => {
+    event.stopPropagation();
     hidePopup(m, null);
   };
 
