@@ -8,9 +8,9 @@ let xy = {};
 
 const popup = document.getElementById('modal');
 const starts = Array.from(document.getElementsByClassName('start'));
-const shutdowns = Array.from(document.querySelector('.shutdown'));
+const shutdowns = Array.from(document.getElementsByClassName('shutdown'));
 
-const variantHtml = popup.querySelector('#p');
+const variantHtml = document.getElementById('p');
 const topText = document.createElement('div');
 const cancelBtn = document.createElement('button');
 
@@ -20,6 +20,11 @@ let interval = null;
 
 const showVariant = () => {
   variantHtml.style.display = 'block';
+};
+
+const hideVariant = () => {
+  variantHtml.innerHTML = '';
+  variantHtml.style.display = 'none';
 };
 
 /**
@@ -59,11 +64,11 @@ const make = (m) => {
     image,
     ttl: mappedS.t * OG.fps,
     color: 'transparent',
-    onDown: () => makePopup(m),
+    onDown: () => showPopup(m),
     update: function() {
       const ttlCheck = timeElapsed * OG.fps;
       if (ttlCheck >= this.ttl) {
-        closeModal(m, false);
+        hidePopup(m, false);
       }
     }
   });
@@ -72,7 +77,7 @@ const make = (m) => {
     x,
     y: y + s - 5,
     ttl: mappedS.t * OG.fps,
-    onDown: () => makePopup(m),
+    onDown: () => showPopup(m),
     render: function() {
       this.draw();
       this.context.strokeRect(this.x, this.y, this.width, this.height);
@@ -88,25 +93,35 @@ const make = (m) => {
   return [c, t];
 };
 
+const makeTimer = (m) => {
+  let count = 30;
+  const message = (ct) => `shutdown in ${ct} seconds`;
+  topText.innerText = message(count);
+  interval = setInterval(() => {
+    count--;
+    topText.innerText = message(count);
+    if (!count) {
+      hidePopup(m, false);
+    }
+  }, 1000);
+  showVariant();
+};
+
 /**
  * @param {ComputerMeta} m
  */
-const makePopup = (m) => {
+const showPopup = (m) => {
   popup.style.display = 'block';
   const oneStart = starts[Math.floor(Math.random() * starts.length)];
   oneStart.parentNode.parentNode.style.display = 'block';
   const shutdown = oneStart.querySelector('.shutdown');
   const closeSuccessFn = () => {
-    variantHtml.style.display = 'none';
-    variantHtml.innerHTML = '';
-    closeModal(m, true);
+    hidePopup(m, true);
   };
 
   cancelBtn.innerText = 'Cancel';
   cancelBtn.onclick = () => {
-    variantHtml.style.display = 'none';
-    variantHtml.innerHTML = '';
-    closeModal(m, null);
+    hidePopup(m, null);
   };
 
   switch (m.v) {
@@ -116,20 +131,7 @@ const makePopup = (m) => {
     case V_MAP.TIMED:
       okBtn.innerText = 'Shut down now';
       okBtn.onclick = closeSuccessFn;
-      shutdown.onclick = () => {
-        let count = 30;
-        const message = (ct) => `shutdown in ${ct} seconds`;
-        topText.innerText = message(count);
-        interval = setInterval(() => {
-          count--;
-          topText.innerText = message(count);
-          console.log(count);
-          if(!count) {
-            closeModal(m, false);
-          }
-        }, 1000);
-        showVariant();
-      };
+      shutdown.onclick = () => makeTimer(m);
       addVariantChildren(false);
       break;
     case V_MAP.FORCE:
@@ -147,9 +149,6 @@ const makePopup = (m) => {
         topText.innerText = 'Waiting for programs to close';
         okBtn.innerText = 'Force';
         okBtn.onclick = closeSuccessFn;
-        variantHtml.removeChild(topText);
-        variantHtml.removeChild(okBtn);
-        variantHtml.removeChild(cancelBtn);
         addVariantChildren(false);
       };
       addVariantChildren(true);
@@ -213,8 +212,8 @@ function addVariantChildren(okFirst) {
  * @param {ComputerMeta} m
  * @param {boolean|null} success - true = yes, false = no, null = canceled.
  */
-const closeModal = (m, success) => {
-  if (interval) {
+const hidePopup = (m, success) => {
+  if (interval !== null) {
     clearInterval(interval);
     interval = null;
   }
@@ -232,6 +231,7 @@ const closeModal = (m, success) => {
     });
     popup.style.display = 'none';
     popup.className = origClasses;
+    hideVariant();
   }, 1000);
 
   if (success) {
