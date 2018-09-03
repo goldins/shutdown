@@ -12,13 +12,14 @@ body, html {
 }
 
 body {
-    background-color: cornflowerblue;
+    background-color: #fcffed;
     text-align: center;
 }
 
 .container, canvas {
     margin: 20px;
-    border: 1px solid #fff;
+    border: 1px solid #000;
+    background: #FAFAFA;
 }
 
 .container {
@@ -41,12 +42,12 @@ body {
 #p {
     position: absolute;
     display: none;
-    border: 1px solid #FFF;
     width: 50%;
     margin: 100px 25% 0 25%;
-    background: #aaa;
+    background: #bbb;
     padding: 10px;
     border-radius: 10px;
+    box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.5);
     z-index: 2;
 }
 
@@ -57,13 +58,14 @@ body {
 }
 
 #d, #u {
+    box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.5);
+    color: #000;
     display: none;
     text-align: left;
     width: 100%;
     position: absolute;
     overflow: visible;
-    background: #ccc;
-    color: #000;
+    background: #fafafa;
     height: 30px;
 }
 
@@ -80,7 +82,7 @@ body {
 }
 
 li, ul {
-    background: #ccc;
+    background: #fafafa;
     list-style-type: none;
     text-align: left;
     padding: 0;
@@ -95,7 +97,7 @@ li, ul {
 li ul {
     display: none;
     position: absolute;
-    border: 1px solid #FFF;
+    box-shadow: 13px -10px 20px -10px rgba(0, 0, 0, 0.5);
 }
 
 #modal li ul {
