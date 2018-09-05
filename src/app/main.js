@@ -52,6 +52,7 @@ function start() {
         if (end && !levels[OG.level + 1]) {
           loop.stop();
           const popup = document.getElementById('end_game');
+          const overlay = document.getElementById('overlay');
           const total = OG.numTotal;
           const won = OG.wins;
           const ratio = won / total;
@@ -59,7 +60,7 @@ function start() {
           popup.innerHTML += `<p>Of ${total} computers<br/> you saved ${won}.`;
           popup.innerHTML += `<br />That's a ${Math.round(ratio * 100)}% success rate.`;
           popup.innerHTML += `<br/><br /><span onclick="javascript:window.location.reload()">Play again?</span>`;
-          popup.style.display = 'block';
+          overlay.style.display = popup.style.display = 'block';
           return;
         }
 

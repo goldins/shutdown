@@ -6,7 +6,7 @@ let s = 40;
 
 let xy = {};
 
-const popup = document.getElementById('overlay');
+const overlay = document.getElementById('overlay');
 const modal = document.getElementById('modal');
 const starts = Array.from(document.getElementsByClassName('start'));
 const shutdowns = Array.from(document.getElementsByClassName('shutdown'));
@@ -112,7 +112,7 @@ const makeTimer = (m) => {
  * @param {ComputerMeta} m
  */
 const showPopup = (m) => {
-  popup.style.display = 'block';
+  overlay.style.display = 'block';
   const oneStart = starts[Math.floor(Math.random() * starts.length)];
   oneStart.parentNode.parentNode.style.display = 'block';
   const shutdown = oneStart.querySelector('.shutdown');
@@ -186,7 +186,7 @@ const showPopup = (m) => {
       };
       chatField.onkeyup = (v) => v.keyCode === 13 ? addChat() : void 0;
       chatSubmit.onclick = addChat;
-      popup.appendChild(chat);
+      overlay.appendChild(chat);
       break;
     default:
       break;
@@ -232,7 +232,7 @@ const hidePopup = (m, success) => {
       oneStart.onclick = () => {};
       oneStart.parentNode.parentNode.style.display = 'none';
     });
-    popup.style.display = 'none';
+    modal.style.display = 'none';
     modal.className = '';
     hideVariant();
   }, 1000);
