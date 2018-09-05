@@ -6,8 +6,8 @@ let s = 40;
 
 let xy = {};
 
-const popup = document.getElementById('modal');
-const origPopupClasses = popup.className;
+const popup = document.getElementById('overlay');
+const modal = document.getElementById('modal');
 const starts = Array.from(document.getElementsByClassName('start'));
 const shutdowns = Array.from(document.getElementsByClassName('shutdown'));
 
@@ -112,7 +112,6 @@ const makeTimer = (m) => {
  * @param {ComputerMeta} m
  */
 const showPopup = (m) => {
-  popup.className = origPopupClasses;
   popup.style.display = 'block';
   const oneStart = starts[Math.floor(Math.random() * starts.length)];
   oneStart.parentNode.parentNode.style.display = 'block';
@@ -224,9 +223,9 @@ const hidePopup = (m, success) => {
   }
   shutdowns.forEach(shutdown => shutdown.parentNode.style.display = 'none');
   if (success === false) {
-    popup.classList.add('infected');
+    modal.classList.add('infected');
   } else {
-    popup.classList.add('turn-off');
+    modal.classList.add('turn-off');
   }
   setTimeout(() => {
     starts.forEach(oneStart => {
@@ -234,7 +233,7 @@ const hidePopup = (m, success) => {
       oneStart.parentNode.parentNode.style.display = 'none';
     });
     popup.style.display = 'none';
-    popup.className = origPopupClasses;
+    modal.className = '';
     hideVariant();
   }, 1000);
 

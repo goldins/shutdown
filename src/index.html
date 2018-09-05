@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shutdown</title>
   </head>
   <body>
     <canvas width="600" height="600"></canvas>
@@ -10,30 +11,32 @@
     <input id="s" value="0" type="number" readonly />
     <!--<input id="t" value="0" type="number" readonly />-->
 
-    <div class="container" id="end_game">
+    <div id="end_game">
     </div>
-    <div class="container" id="modal">
-      <div id="u">
-        <ul>
-          <li class="start">Start
-            <ul>
-              <li>System info</li>
-              <li class="shutdown">Shutdown</li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div id="p"></div>
-      <div id="d">
-        <ul>
-          <li class="start">
-            <ul>
-              <li>System info</li>
-              <li class="shutdown">Shutdown</li>
-            </ul>
-            Start
-          </li>
-        </ul>
+    <div id="overlay">
+      <div id="modal">
+        <div id="u">
+          <ul>
+            <li class="start">Start
+              <ul>
+                <li>System info</li>
+                <li class="shutdown">Shutdown</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div id="p"></div>
+        <div id="d">
+          <ul>
+            <li class="start">
+              <ul>
+                <li>System info</li>
+                <li class="shutdown">Shutdown</li>
+              </ul>
+              Start
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </body>

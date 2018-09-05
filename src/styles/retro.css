@@ -64,7 +64,7 @@
     }
 }
 
-.container::before {
+#modal::before {
     content: " ";
     display: block;
     position: absolute;
@@ -96,12 +96,12 @@
 
 }
 
-.container.turn-off {
+#modal.turn-off {
     animation: turn-off 1s linear;
     animation-fill-mode: forwards;
 }
 
-.container.infected {
+#modal.infected {
     animation: turn-off 1s linear;
     animation-fill-mode: forwards;
 }

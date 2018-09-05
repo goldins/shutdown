@@ -16,14 +16,13 @@ body {
     text-align: center;
 }
 
-.container, canvas {
+canvas, #end_game, #modal {
     margin: 20px;
     border: 1px solid #000;
     background: #FAFAFA;
 }
 
-.container {
-    display: none;
+#end_game, #modal {
     color: #fff;
     width: 500px;
     position: absolute;
@@ -35,8 +34,24 @@ body {
     overflow: hidden;
 }
 
+#end_game, #overlay {
+    display: none;
+}
+
+#overlay {
+    position: absolute;
+    background: transparent;
+    height: 600px;
+    width: 600px;
+    top: 20px;
+    left: 50%;
+    margin-left: -302px;
+    padding: 50px;
+}
+
 #modal {
     height: 500px;
+    width: 500px;
 }
 
 #p {
