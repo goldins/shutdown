@@ -16,10 +16,11 @@ body {
     text-align: center;
 }
 
-canvas, #end_game, #modal {
+canvas {
     margin: 20px;
+    border-radius: 20px;
     border: 1px solid #000;
-    background: #FAFAFA;
+    background: #d5fcff;
 }
 
 #end_game, #modal {
@@ -32,6 +33,7 @@ canvas, #end_game, #modal {
     border-radius: 20px;
     background: #008080;
     overflow: hidden;
+    box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.5);
 }
 
 #end_game, #overlay {

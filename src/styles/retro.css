@@ -2,65 +2,14 @@
     0% {
         opacity: 0.43346;
     }
-    5% {
-        opacity: 0.00682;
-    }
-    10% {
-        opacity: 0.75401;
-    }
-    15% {
-        opacity: 0.48318;
-    }
-    20% {
-        opacity: 0.26695;
-    }
-    25% {
-        opacity: 0.89243;
-    }
-    30% {
-        opacity: 0.74393;
-    }
-    35% {
-        opacity: 0.5413;
-    }
     40% {
         opacity: 0.23063;
-    }
-    45% {
-        opacity: 0.61213;
-    }
-    50% {
-        opacity: 0.7044;
-    }
-    55% {
-        opacity: 0.05963;
-    }
-    60% {
-        opacity: 0.47487;
-    }
-    65% {
-        opacity: 0.82002;
     }
     70% {
         opacity: 0.11019;
     }
-    75% {
-        opacity: 0.30278;
-    }
-    80% {
-        opacity: 0.27923;
-    }
-    85% {
-        opacity: 0.98928;
-    }
-    90% {
-        opacity: 0.74579;
-    }
-    95% {
-        opacity: 0.67768;
-    }
     100% {
-        opacity: 0.83194;
+        opacity: 1;
     }
 }
 
@@ -94,6 +43,11 @@
 
 @keyframes infected {
 
+}
+
+#modal {
+    animation: flicker 0.15s linear;
+    animation-fill-mode: forwards;
 }
 
 #modal.turn-off {
