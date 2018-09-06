@@ -3,13 +3,13 @@ import makeAll from './computers';
 
 // Static game session information for easy global access.
 export default class GameInfo {
-  constructor() {
-    GameInfo.makeLevel(0);
+  static init() {
+    return GameInfo.makeLevel(0);
   }
 
   static removeSprite(id) {
     delete GameInfo.sp[id];
-    GameInfo.makeSpritesArray();
+    GameInfo.makeSprites();
   }
 
   static spriteLost(target) {
@@ -24,7 +24,7 @@ export default class GameInfo {
     GameInfo.removeSprite(target.id);
   }
 
-  static makeSpritesArray() {
+  static makeSprites() {
     GameInfo.spArr = Object.values(GameInfo.sp).reduce((r, b) => r.concat(b), []);
   }
 
@@ -56,14 +56,16 @@ export default class GameInfo {
     const levelTargets = Object.keys(GameInfo.sp).length;
     GameInfo.numTotal += levelTargets;
     GameInfo.numLeft = levelTargets;
-    GameInfo.makeSpritesArray();
+    GameInfo.makeSprites();
   }
 
   static nextLevel() {
     GameInfo.makeLevel(++GameInfo.level);
+    return GameInfo.level;
   }
 }
 
+GameInfo.level = 0;
 GameInfo.elapsed = 0;
 GameInfo.score = 0;
 GameInfo.chatWins = 0;

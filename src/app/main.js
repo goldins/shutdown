@@ -12,7 +12,6 @@ c.fillText('Click anywhere to start', 35, 300);
 c.strokeStyle = 'transparent';
 kontra.canvas.onclick = start;
 
-
 const c1 = 'iVBORw0KGgoAAAANSUhEUgAAACgAAAAjCAYAAADmOUiuAAABUUlEQVRYR2NkwAGmT877j0uOFuKZ' +
   'uZMYsZmLVRDmuNRkL1q4BcPM2XO3gcWwORKnA+nlOJhrQY6kigPjkrooCtVF88qw6qeKA0GOu3Pv' +
   'C9wCFRUVOHvXrl1EOdzNRY8BmyMpdiDMcciOwuYiYhyKzZF0cyDM0fgcSjMHMjBJEBWNIEWD3oH4' +
@@ -40,32 +39,33 @@ function start() {
   kontra.canvas.onclick = () => {};
   let p = kontra.assets.loadB64({ c1, c2, c3 });
   p.then(() => {
-    new OG();
+    OG.init();
     let loop = kontra.gameLoop({
       update() {
+        const end = OG.checkEnd();
+        const hasNextLevel = !!levels[OG.level + 1];
+
+        OG.spArr.map(s => s.update());
         kontra.pointer.track(OG.spArr);
         s.value = OG.score;
-        OG.spArr.map(s => s.update());
 
-        const end = OG.checkEnd();
-
-        if (end && !levels[OG.level + 1]) {
-          loop.stop();
-          const popup = document.getElementById('end_game');
-          const overlay = document.getElementById('overlay');
-          const total = OG.numTotal;
-          const won = OG.wins;
-          const ratio = won / total;
-          popup.innerHTML = `<p>Thank you for ${ratio < 0.5 ? 'trying to save' : 'saving'} us.</p>`;
-          popup.innerHTML += `<p>Of ${total} computers<br/> you saved ${won}.`;
-          popup.innerHTML += `<br />That's a ${Math.round(ratio * 100)}% success rate.`;
-          popup.innerHTML += `<br/><br /><span onclick="javascript:window.location.reload()">Play again?</span>`;
-          overlay.style.display = popup.style.display = 'block';
-          return;
-        }
-
-        if (end && levels[OG.level + 1]) {
-          OG.nextLevel();
+        if (end) {
+          if (!hasNextLevel) {
+            loop.stop();
+            const popup = document.getElementById('end_game');
+            const overlay = document.getElementById('overlay');
+            const total = OG.numTotal;
+            const won = OG.wins;
+            const ratio = won / total;
+            popup.innerHTML = `<p>Thank you for ${ratio < 0.5 ? 'trying to save' : 'saving'} us.</p>`;
+            popup.innerHTML += `<p>Of ${total} computers<br/> you saved ${won}.`;
+            popup.innerHTML += `<br />That's a ${Math.round(ratio * 100)}% success rate.`;
+            popup.innerHTML += `<br/><br /><span onclick="javascript:window.location.reload()">Play again?</span>`;
+            overlay.style.display = popup.style.display = 'block';
+          } else {
+            OG.nextLevel();
+            console.log('tracking', OG.spArr);
+          }
         }
       },
       render() {

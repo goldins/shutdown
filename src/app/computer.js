@@ -73,6 +73,8 @@ const make = (m) => {
       }
     }
   });
+
+  console.log(c);
   const t = kontra.sprite({
     height: 5,
     x,
@@ -112,6 +114,7 @@ const makeTimer = (m) => {
  * @param {ComputerMeta} m
  */
 const showPopup = (m) => {
+  console.log(m);
   overlay.style.display = 'block';
   const oneStart = starts[Math.floor(Math.random() * starts.length)];
   oneStart.parentNode.parentNode.style.display = 'block';

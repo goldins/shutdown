@@ -39,26 +39,22 @@ function aliasSampler(inputProbabilities) {
 
 /**
  *
- * @param {LevelObject} l
+ * @param {LevelObject} levelObject
  * @returns {Sprite[]}
  */
-export default (l) => {
-  let a = {}, m = [], d = l.num, s = l.speeds, v = l.vars;
+export default (levelObject) => {
+  let allModels = {}, num = levelObject.num, variants = levelObject.vars;
 
-  const randomSpeed = aliasSampler(s);
-  const randomVariant = aliasSampler(v);
+  const randomSpeed = aliasSampler(levelObject.speeds);
+  const randomVariant = aliasSampler(variants);
 
-  for (let i = 0; i < d; i++) {
-    m.push({ s: randomSpeed() });
+  for (let i = 0; i < num; i++) {
+    allModels[i] = make({
+      s: randomSpeed(),
+      v: randomVariant(),
+      id: i
+    });
   }
 
-  for (let i = 0; i < d; i++) {
-    m[i].v = randomVariant();
-  }
-  for (let j = 0; j < d; j++) {
-    m[j].id = j;
-    a[j] = make(m[j]);
-  }
-
-  return a;
+  return allModels;
 };
