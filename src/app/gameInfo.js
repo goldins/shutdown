@@ -7,21 +7,31 @@ export default class GameInfo {
     return GameInfo.makeLevel(0);
   }
 
-  static removeSprite(id) {
-    delete GameInfo.sp[id];
+  /**
+   *
+   * @param {ComputerMeta.i} i
+   */
+  static removeSprite(i) {
+    delete GameInfo.sp[i];
     GameInfo.makeSprites();
   }
 
+  /**
+   * @param {ComputerMeta} target
+   */
   static spriteLost(target) {
     --GameInfo.numLeft;
-    GameInfo.removeSprite(target.id);
+    GameInfo.removeSprite(target.i);
   }
 
+  /**
+   * @param {ComputerMeta} target
+   */
   static spriteSaved(target) {
     ++GameInfo.wins;
     --GameInfo.numLeft;
     GameInfo.updateScore(target);
-    GameInfo.removeSprite(target.id);
+    GameInfo.removeSprite(target.i);
   }
 
   static makeSprites() {

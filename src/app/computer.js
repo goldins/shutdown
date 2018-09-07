@@ -6,8 +6,8 @@ let s = 40;
 
 let xy = {};
 
-const overlay = document.getElementById('overlay');
-const modal = document.getElementById('modal');
+const overlay = document.getElementById('screen_overlay');
+const modal = document.getElementById('screen');
 const starts = Array.from(document.getElementsByClassName('start'));
 const shutdowns = Array.from(document.getElementsByClassName('shutdown'));
 
@@ -30,9 +30,9 @@ const hideVariant = () => {
 
 /**
  * @typedef {object} ComputerMeta
- * @param {number} m.s - speed - will render different images
- * @param {number} m.v - variant
- * @param {number} m.id - id
+ * @param {number} s - speed - will render different images
+ * @param {number} v - variant
+ * @param {number} i - id/index
  */
 
 /**
@@ -115,7 +115,7 @@ const makeTimer = (m) => {
  */
 const showPopup = (m) => {
   console.log(m);
-  overlay.style.display = 'block';
+  overlay.style.display = modal.style.display = 'block';
   const oneStart = starts[Math.floor(Math.random() * starts.length)];
   oneStart.parentNode.parentNode.style.display = 'block';
   const shutdown = oneStart.querySelector('.shutdown');
@@ -235,7 +235,7 @@ const hidePopup = (m, success) => {
       oneStart.onclick = () => {};
       oneStart.parentNode.parentNode.style.display = 'none';
     });
-    modal.style.display = 'none';
+    overlay.style.display = modal.style.display = 'none';
     modal.className = '';
     hideVariant();
   }, 1000);

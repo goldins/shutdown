@@ -23,11 +23,11 @@ canvas {
     background: #d5fcff;
 }
 
-#end_game, #overlay {
+#end_game, #screen_overlay, #end_game_overlay {
     display: none;
 }
 
-#overlay {
+#screen_overlay, #end_game_overlay {
     position: absolute;
     background: transparent;
     height: 600px;
@@ -38,7 +38,7 @@ canvas {
     padding: 50px;
 }
 
-#end_game, #modal {
+#end_game, #screen {
     width: 500px;
     position: relative;
     border-radius: 20px;
@@ -47,7 +47,7 @@ canvas {
     box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.5);
 }
 
-#modal {
+#screen {
     height: 500px;
     width: 500px;
 }
@@ -112,15 +112,15 @@ li ul {
     position: absolute;
 }
 
-#modal li ul {
+#screen li ul {
     margin-top: 5px;
 }
 
-#modal > * > ul ul {
+#screen > * > ul ul {
     left: 0;
 }
 
-#modal li li {
+#screen li li {
     padding: 10px;
 }
 

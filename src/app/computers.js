@@ -52,7 +52,7 @@ export default (levelObject) => {
     allModels[i] = make({
       s: randomSpeed(),
       v: randomVariant(),
-      id: i
+      i
     });
   }
 

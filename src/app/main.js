@@ -45,22 +45,22 @@ function start() {
         const end = OG.checkEnd();
         const hasNextLevel = !!levels[OG.level + 1];
 
+        OG.spArr.map(s => kontra.pointer.track(s));
         OG.spArr.map(s => s.update());
-        kontra.pointer.track(OG.spArr);
         s.value = OG.score;
 
         if (end) {
           if (!hasNextLevel) {
             loop.stop();
+            const overlay = document.getElementById('end_game_overlay');
             const popup = document.getElementById('end_game');
-            const overlay = document.getElementById('overlay');
             const total = OG.numTotal;
             const won = OG.wins;
             const ratio = won / total;
             popup.innerHTML = `<p>Thank you for ${ratio < 0.5 ? 'trying to save' : 'saving'} us.</p>`;
             popup.innerHTML += `<p>Of ${total} computers<br/> you saved ${won}.`;
             popup.innerHTML += `<br />That's a ${Math.round(ratio * 100)}% success rate.`;
-            popup.innerHTML += `<br/><br /><span onclick="javascript:window.location.reload()">Play again?</span>`;
+            popup.innerHTML += `<br/><br /><span onclick="window.location.reload()">Play again?</span>`;
             overlay.style.display = popup.style.display = 'block';
           } else {
             OG.nextLevel();
