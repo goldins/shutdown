@@ -40,12 +40,12 @@ function start() {
   let p = kontra.assets.loadB64({ c1, c2, c3 });
   p.then(() => {
     OG.init();
+    OG.spArr.map(s => kontra.pointer.track(s));
     let loop = kontra.gameLoop({
       update() {
         const end = OG.checkEnd();
         const hasNextLevel = !!levels[OG.level + 1];
 
-        OG.spArr.map(s => kontra.pointer.track(s));
         OG.spArr.map(s => s.update());
         s.value = OG.score;
 
@@ -64,7 +64,7 @@ function start() {
             overlay.style.display = popup.style.display = 'block';
           } else {
             OG.nextLevel();
-            console.log('tracking', OG.spArr);
+            OG.spArr.map(s => kontra.pointer.track(s));
           }
         }
       },

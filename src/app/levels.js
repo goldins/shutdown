@@ -36,7 +36,7 @@ const [h, t, f, i] = [1 / 2, 1 / 3, 1 / 4, 1 / 5];
 export const levels = [{
   // LEVEL 1
   // number of computers
-  num: 10,
+  num: 2,
   // speed of computers (%)
   speeds: [1],
   // (%)
