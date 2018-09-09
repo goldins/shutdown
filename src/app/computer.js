@@ -56,8 +56,6 @@ const make = (m) => {
   xy[x][y] = 1;
   let timeElapsed = 0;
   const c = kontra.sprite({
-    width: s,
-    height: s - 5,
     x,
     y,
     image,
