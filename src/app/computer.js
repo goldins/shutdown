@@ -57,13 +57,18 @@ const make = (m) => {
   let timeElapsed = 0;
   const c = kontra.sprite({
     width: s,
-    height: s,
+    height: s - 5,
     x,
     y,
     image,
     ttl: mappedS.t * OG.fps,
     color: 'transparent',
     onDown: () => showPopup(m),
+    render: function() {
+      this.draw();
+      this.width = s;
+      this.height = s - 5;
+    },
     update: function() {
       const ttlCheck = timeElapsed * OG.fps;
       if (ttlCheck >= this.ttl) {
@@ -111,6 +116,7 @@ const makeTimer = (m) => {
  * @param {ComputerMeta} m
  */
 const showPopup = (m) => {
+  console.log('showPopup', m);
   overlay.style.display = modal.style.display = 'block';
   const oneStart = starts[Math.floor(Math.random() * starts.length)];
   oneStart.parentNode.parentNode.style.display = 'block';
