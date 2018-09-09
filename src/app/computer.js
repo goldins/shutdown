@@ -27,8 +27,8 @@ const hideVariant = () => {
 
 /** @type {number} computer size */
 let s = 40;
-const n = (dim) => dim / s;
-const r = (dim, _s) => Math.round(Math.random() * (dim - _s) / n(dim)) * n(dim);
+const n = (dim) => Math.floor(dim / s);
+const r = (dim) => Math.round(Math.random() * (dim - s) / n(dim)) * n(dim);
 
 /**
  * @typedef {object} ComputerMeta
@@ -48,10 +48,7 @@ const make = (m) => {
   const w = kontra.canvas.width;
   const h = kontra.canvas.height;
   // todo: make sure this is never out of view!!
-  let x = r(w, s), y = r(h, s - 5);
-  if (x > w || y > h) {
-    console.error('oopsie whoopsie. x, y: ', x, y);
-  }
+  let x = r(w), y = r(h);
   if (!xy[x]) xy[x] = {};
   if (xy[x][y]) {
     return make(m);
