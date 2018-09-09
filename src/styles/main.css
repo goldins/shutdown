@@ -3,12 +3,12 @@
 }
 
 body, html {
-    width: 100%;
+    -moz-user-select: none;
     height: 100%;
     margin: 0;
     padding: 0;
     user-select: none;
-    -moz-user-select: none;
+    width: 100%;
 }
 
 body {
@@ -17,14 +17,14 @@ body {
 }
 
 canvas {
-    position: absolute;
-    width: 100%;
+    background: #d5fcff;
     height: 100%;
     left: 0;
-    right: 0;
     margin: 0;
     padding: 0;
-    background: #d5fcff;
+    position: absolute;
+    right: 0;
+    width: 100%;
 }
 
 #end_game, #screen_overlay, #end_game_overlay {
@@ -32,52 +32,51 @@ canvas {
 }
 
 #screen_overlay, #end_game_overlay {
-    position: absolute;
     background: transparent;
     height: 100%;
+    position: absolute;
     width: 100%;
 }
 
 #end_game, #screen {
-    margin-top: 10vw;
-    width: 80vw;
-    height: 80vw;
-    margin-left: 10vw;
-    position: relative;
-    border-radius: 20px;
     background: #008080;
-    overflow: hidden;
+    border-radius: 20px;
     box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.5);
+    height: 80vmin;
+    margin: 10vmin auto;
+    overflow: hidden;
+    position: relative;
+    width: 80vmin;
 }
 
 #p {
-    position: absolute;
-    display: none;
-    width: 50%;
-    margin: 100px 25% 0 25%;
     background: #bbb;
-    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.5);
+    display: none;
+    margin: 100px 25% 0 25%;
+    padding: 10px;
+    position: absolute;
+    width: 50%;
     z-index: 2;
 }
 
 #p button {
-    margin: 10px;
-    padding: 10px;
     border-radius: 10px;
     font-size: 14px;
+    margin: 10px;
+    padding: 10px;
 }
 
 #d, #u {
+    background: #fafafa;
     box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.5);
     color: #000;
     display: none;
+    overflow: visible;
+    position: absolute;
     text-align: left;
     width: 100%;
-    position: absolute;
-    overflow: visible;
-    background: #fafafa;
 }
 
 #d ul, #u ul {
@@ -95,9 +94,9 @@ canvas {
 li, ul {
     background: #fafafa;
     list-style-type: none;
-    text-align: left;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    text-align: left;
 }
 
 #d > ul, #u > ul {
