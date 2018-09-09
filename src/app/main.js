@@ -10,13 +10,13 @@ const overlay = document.getElementById('end_game_overlay');
 const popup = document.getElementById('end_game');
 
 overlay.style.display = popup.style.display = 'block';
-popup.innerHTML = `Please turn computers off<br/>before they are infected<br/><br/>Click anywhere to start`;
+popup.innerHTML = `Please turn computers off<br/>before they are infected<br/><br/>Click or anywhere tap to start`;
 
 kontra.init();
 
 const c = kontra.context;
 c.strokeStyle = 'transparent';
-popup.onclick = start;
+overlay.onclick = start;
 
 const c1 = 'iVBORw0KGgoAAAANSUhEUgAAACgAAAAjCAYAAADmOUiuAAABUUlEQVRYR2NkwAGmT877j0uOFuKZ' +
   'uZMYsZmLVRDmuNRkL1q4BcPM2XO3gcWwORKnA+nlOJhrQY6kigPjkrooCtVF88qw6qeKA0GOu3Pv' +
