@@ -1,9 +1,6 @@
 import { sMap, V_MAP } from './levels';
 import OG from './gameInfo';
 
-/** @type {number} computer size */
-let s = 40;
-
 let xy = {};
 
 const overlay = document.getElementById('screen_overlay');
@@ -41,13 +38,17 @@ const hideVariant = () => {
  * @returns {Sprite[]} - [computerSprite, timerRect]
  */
 const make = (m) => {
+  /** @type {number} computer size */
   let mappedS = sMap[m.s];
   let image = kontra.assets.images[`c${mappedS.i}`];
   const w = kontra.canvas.width;
+  const h = kontra.canvas.width;
+  console.log(w);
+  let s = 40;
   const n = w / s;
   // todo: make sure this is never out of view!!
-  let r = () => Math.round(Math.random() * (w - s) / n) * n;
-  let x = r(), y = r();
+  let r = (dim) => Math.round(Math.random() * (dim - s) / n) * n;
+  let x = r(w), y = r(h);
   if (x > w || y > w) {
     console.error('oopsie whoopsie. x, y: ', x, y);
   }
@@ -74,7 +75,6 @@ const make = (m) => {
     }
   });
 
-  console.log(c);
   const t = kontra.sprite({
     height: 5,
     x,
@@ -90,7 +90,7 @@ const make = (m) => {
       /** @var {number} percent of life remaining */
       const lifeLeft = getLifeLeft(mappedS, timeElapsed);
       this.color = getColor(lifeLeft);
-      this.width = Math.max(0, getWidth(lifeLeft));
+      this.width = Math.max(0, s * lifeLeft);
     }
   });
   return [c, t];
@@ -114,7 +114,6 @@ const makeTimer = (m) => {
  * @param {ComputerMeta} m
  */
 const showPopup = (m) => {
-  console.log(m);
   overlay.style.display = modal.style.display = 'block';
   const oneStart = starts[Math.floor(Math.random() * starts.length)];
   oneStart.parentNode.parentNode.style.display = 'block';
@@ -220,7 +219,6 @@ function addVariantChildren(okFirst) {
  */
 const hidePopup = (m, success) => {
   if (interval !== null) {
-    console.log('clearing interval', interval);
     clearInterval(interval);
     interval = null;
   }
@@ -250,7 +248,5 @@ const hidePopup = (m, success) => {
 const getColor = (lifeLeft) => lifeLeft < 0.25 ? 'red' : lifeLeft < 0.7 ? '#FF0' : '#0F0';
 
 const getLifeLeft = (mappedS, timeElapsed) => 1 - timeElapsed / mappedS.t;
-
-const getWidth = (lifeLeft) => s * lifeLeft;
 
 export default make;

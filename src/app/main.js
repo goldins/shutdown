@@ -2,15 +2,21 @@ import '../lib/kontra';
 import OG from './gameInfo';
 import { levels } from './levels';
 
+const canvas = document.getElementsByTagName('canvas')[0];
+canvas.width = document.body.clientWidth;
+canvas.height = document.body.clientHeight;
+
+const overlay = document.getElementById('end_game_overlay');
+const popup = document.getElementById('end_game');
+
+overlay.style.display = popup.style.display = 'block';
+popup.innerHTML = `Please turn computers off<br/>before they are infected<br/><br/>Click anywhere to start`;
+
 kontra.init();
 
 const c = kontra.context;
-c.font = '38px Courier';
-c.fillText('Please turn computers off', 10, 50);
-c.fillText('before they are infected', 10, 120);
-c.fillText('Click anywhere to start', 35, 300);
 c.strokeStyle = 'transparent';
-kontra.canvas.onclick = start;
+popup.onclick = start;
 
 const c1 = 'iVBORw0KGgoAAAANSUhEUgAAACgAAAAjCAYAAADmOUiuAAABUUlEQVRYR2NkwAGmT877j0uOFuKZ' +
   'uZMYsZmLVRDmuNRkL1q4BcPM2XO3gcWwORKnA+nlOJhrQY6kigPjkrooCtVF88qw6qeKA0GOu3Pv' +
@@ -36,6 +42,7 @@ const c3 = 'iVBORw0KGgoAAAANSUhEUgAAACgAAAAjCAYAAADmOUiuAAABaklEQVRYR+2YOw6DMAyG
   'R9vbQ8Z7rhUAAAAASUVORK5CYII';
 
 function start() {
+  overlay.style.display = popup.style.display = 'none';
   kontra.canvas.onclick = () => {};
   let p = kontra.assets.loadB64({ c1, c2, c3 });
   p.then(() => {
@@ -47,13 +54,10 @@ function start() {
         const hasNextLevel = !!levels[OG.level + 1];
 
         OG.spArr.map(s => s.update());
-        s.value = OG.score;
 
         if (end) {
           if (!hasNextLevel) {
             loop.stop();
-            const overlay = document.getElementById('end_game_overlay');
-            const popup = document.getElementById('end_game');
             const total = OG.numTotal;
             const won = OG.wins;
             const ratio = won / total;
