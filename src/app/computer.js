@@ -25,6 +25,11 @@ const hideVariant = () => {
   variantHtml.style.display = 'none';
 };
 
+/** @type {number} computer size */
+let s = 40;
+const n = (dim) => dim / s;
+const r = (dim, _s) => Math.round(Math.random() * (dim - _s) / n(dim)) * n(dim);
+
 /**
  * @typedef {object} ComputerMeta
  * @param {number} s - speed - will render different images
@@ -38,18 +43,13 @@ const hideVariant = () => {
  * @returns {Sprite[]} - [computerSprite, timerRect]
  */
 const make = (m) => {
-  /** @type {number} computer size */
   let mappedS = sMap[m.s];
   let image = kontra.assets.images[`c${mappedS.i}`];
   const w = kontra.canvas.width;
-  const h = kontra.canvas.width;
-  console.log(w);
-  let s = 40;
-  const n = w / s;
+  const h = kontra.canvas.height;
   // todo: make sure this is never out of view!!
-  let r = (dim) => Math.round(Math.random() * (dim - s) / n) * n;
-  let x = r(w), y = r(h);
-  if (x > w || y > w) {
+  let x = r(w, s), y = r(h, s - 5);
+  if (x > w || y > h) {
     console.error('oopsie whoopsie. x, y: ', x, y);
   }
   if (!xy[x]) xy[x] = {};
