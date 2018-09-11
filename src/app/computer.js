@@ -92,8 +92,9 @@ const make = (m) => {
 export const showInfo = (m) => {
   const infoHtml = document.getElementById('info');
   infoHtml.style.display = 'block';
+  console.log(m.s);
   const infoOkay = document.createElement('button');
-  infoHtml.innerHTML = `I'm a ${m.s === 2 ? 'slow' : m.s === 1 ? 'medium' : 'fast'} computer.`;
+  infoHtml.innerHTML = `I'm a ${m.s === 0 ? 'slow' : m.s === 1 ? 'medium' : 'fast'} computer.`;
   infoOkay.innerText = 'Cancel';
   infoHtml.appendChild(infoOkay);
   infoOkay.onclick = (e) => {
