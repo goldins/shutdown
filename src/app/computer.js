@@ -1,5 +1,6 @@
 import { sMap, V_MAP } from './levels';
 import OG from './gameInfo';
+import { closeSuccessFn, hidePopup, makeChat, makeForce, makeSave, makeTimed } from './variants';
 
 let xy = {};
 
@@ -7,29 +8,11 @@ const overlay = document.getElementById('screen_overlay');
 const content = overlay.querySelector('.content');
 const modal = document.getElementById('screen');
 const starts = Array.from(document.getElementsByClassName('start'));
-const shutdowns = Array.from(document.getElementsByClassName('shutdown'));
-
-const variantHtml = document.getElementById('p');
-const topText = document.createElement('div');
-const cancelBtn = document.createElement('button');
-
-const okBtn = document.createElement('button');
 
 const icons = `💺 🔝 🚞 😁 😾 🚸 ☸ 🍛 🔖 🗃 🦁 💠 🛀 ♓ 🙎 🙀 🛃 💔 🐌 🐠 🌲 🗓 🐒 😑 🚏 🏺 🏭 🗝 🌼 🚩 🍾 🕢 🌁 🔱 🔘 📵 🕟 🦂 🚇 ❗ 🐱 🕋 📯 💓 😣 🏆 💅 👴 🦃 🚀 🐹
  😄 🚴 ⏸ ❎ 🕵 🎠 🏃 🍎 🍦 🏏 🌳 💜 🐈 👿 🔕 🕛 😈 🍒 ⛹ 🚚 🏢 🕌 💁 ⛪ 🔠 🌶 🏄 🌙 ♈ 🤒 📚 👳 🖱 🏉 📛 👄 🔗 🌈 😧 🀄 🗳 ⏩ 🌯 🎞 🙈 😗 🤐 🔀 ⛔ ⛄ ☘ 🐽 🌡 🔃 🌚 🏑
  🚼 🍈 🏊 👟 😀 📶 🕰 🐗 🙎 🏄 💁‍ 🙍 👎 👮 🕉 😹 🎖 😻 💚 👷 ✅ 🌗 🤕 🏤 👔 ⛰ 🙋 🗂 🚣 🎍 🏊 👩 🍄 👙 🚫 🙆 😅 🏞 💻 🏌 🙎‍ 🙏 🎫 🏄‍ 💆 💁‍ 👨 🚠 🔫 👦 👰 👃 🚧 👊
  👩‍ 💅 🛢 🚣‍ 🐕 😛`.split(' ');
-
-let interval = null;
-
-const showVariant = () => {
-  variantHtml.style.display = 'block';
-};
-
-const hideVariant = () => {
-  variantHtml.innerHTML = '';
-  variantHtml.style.display = 'none';
-};
 
 /** @type {number} computer size */
 let s = 40;
@@ -102,163 +85,71 @@ const make = (m) => {
   return [c, t];
 };
 
-const makeTimer = (m) => {
-  let count = 30;
-  const message = (ct) => `shutdown in ${ct} seconds`;
-  topText.innerText = message(count);
-  interval = setInterval(() => {
-    count--;
-    topText.innerText = message(count);
-    if (!count) {
-      hidePopup(m, false);
-    }
-  }, 1000);
-  showVariant();
+/**
+ *
+ * @param {ComputerMeta} m
+ */
+export const showInfo = (m) => {
+  const infoHtml = document.getElementById('info');
+  infoHtml.style.display = 'block';
+  const infoOkay = document.createElement('button');
+  infoHtml.innerHTML = `I'm a ${m.s === 2 ? 'slow' : m.s === 1 ? 'medium' : 'fast'} computer.`;
+  infoOkay.innerText = 'Cancel';
+  infoHtml.appendChild(infoOkay);
+  infoOkay.onclick = (e) => {
+    e.stopPropagation();
+    infoHtml.style.display = 'none';
+    infoHtml.innerHTML = '';
+  };
 };
 
 /**
  * @param {ComputerMeta} m
  */
 const showPopup = (m) => {
-  overlay.style.display = modal.style.display = 'block';
   const numIcons = Math.round(Math.random() * 20);
-  let thisIcons = [];
+  const thisIcons = [];
   for (let i = 0; i < numIcons; i++) {
     const randomIcon = icons[Math.floor(Math.random() * icons.length)];
-    thisIcons = thisIcons.concat([randomIcon, ' ']);
+    thisIcons.push(randomIcon);
     if (Math.random() > 0.8) {
       thisIcons.push('<br />');
     }
   }
-  content.innerHTML = thisIcons.join('');
+  content.innerHTML = thisIcons.join(' ');
   const oneStart = starts[Math.floor(Math.random() * starts.length)];
-  oneStart.parentNode.parentNode.style.display = 'block';
   const shutdown = oneStart.querySelector('.shutdown');
+  const info = oneStart.querySelector('.info');
+  info.onclick = () => showInfo(m);
+  oneStart.parentNode.parentNode.style.display = 'block';
+  overlay.style.display = modal.style.display = 'block';
 
-  function closeSuccessFn(event) {
-    event.stopPropagation();
-    hidePopup(m, true);
-  }
-
-  cancelBtn.innerText = 'Cancel';
-  cancelBtn.onclick = (event) => {
-    event.stopPropagation();
-    hidePopup(m, null);
+  oneStart.onclick = () => {
+    shutdown.parentNode.style.display = 'block';
   };
 
   switch (m.v) {
     case V_MAP.NORMAL:
-      shutdown.onclick = closeSuccessFn;
+      shutdown.onclick = (event) => closeSuccessFn(event, m);
       break;
     case V_MAP.TIMED:
-      okBtn.innerText = 'Shut down now';
-      okBtn.onclick = closeSuccessFn;
-      shutdown.onclick = () => makeTimer(m);
-      addVariantChildren(false);
+      shutdown.onclick = () => makeTimed(m);
       break;
     case V_MAP.FORCE:
-      shutdown.onclick = showVariant;
-      topText.innerText = 'Waiting for programs to close';
-      okBtn.innerText = 'Force';
-      okBtn.onclick = closeSuccessFn;
-      addVariantChildren(true);
+      shutdown.onclick = () => makeForce(m);
       break;
     case V_MAP.SAVE:
-      shutdown.onclick = showVariant;
-      topText.innerText = 'You have unsaved changes!';
-      okBtn.innerText = 'Save';
-      okBtn.onclick = () => {
-        topText.innerText = 'Waiting for programs to close';
-        okBtn.innerText = 'Force';
-        okBtn.onclick = closeSuccessFn;
-        addVariantChildren(false);
-      };
-      addVariantChildren(true);
+      shutdown.onclick = () => makeSave(m);
       break;
     case V_MAP.CHAT:
-      shutdown.onclick = closeSuccessFn;
-      const chat = document.createElement('div');
-      chat.style.position = 'absolute';
-      chat.style.width = '50%';
-      chat.style.padding = '10px';
-      chat.style.margin = '10px';
-      chat.style.float = 'left';
-      chat.style.marginTop = '40px';
-      chat.style.background = '#fff';
-      chat.innerHTML = '<ul><li>hey</li><li>u there</li><li>i miss u <3</li></ul>';
-      const chatUl = chat.querySelector('ul');
-      const chatField = document.createElement('input');
-      chatField.type = 'text';
-      const chatSubmit = document.createElement('button');
-      chat.appendChild(chatField);
-      chat.appendChild(chatSubmit);
-      chatSubmit.innerText = 'send';
-      const addChat = () => {
-        const v = chatField.value;
-        chatField.value = '';
-        const newChat = document.createElement('li');
-        newChat.innerText = v;
-        chatUl.appendChild(newChat);
-        if (v.toLowerCase().indexOf('love you') >= 0) {
-          OG.updateScoreBonus(m);
-        }
+      const chat = makeChat(m);
+      shutdown.onclick = (event) => {
+        closeSuccessFn(event, m);
+        chat.parentNode.removeChild(chat);
       };
-      chatField.onkeyup = (v) => v.keyCode === 13 ? addChat() : void 0;
-      chatSubmit.onclick = addChat;
-      overlay.appendChild(chat);
       break;
     default:
       break;
-  }
-  oneStart.onclick = () => {
-    shutdown.parentNode.style.display = 'inline-block';
-  };
-};
-
-/**
- *
- * @param {boolean} okFirst - place OK button first
- */
-function addVariantChildren(okFirst) {
-  variantHtml.appendChild(topText);
-  if (okFirst) {
-    variantHtml.appendChild(okBtn);
-  }
-  variantHtml.appendChild(cancelBtn);
-  if (!okFirst) {
-    variantHtml.appendChild(okBtn);
-  }
-}
-
-/**
- * @param {ComputerMeta} m
- * @param {boolean|null} success - true = yes, false = no, null = canceled.
- */
-const hidePopup = (m, success) => {
-  if (interval !== null) {
-    clearInterval(interval);
-    interval = null;
-  }
-  shutdowns.forEach(shutdown => shutdown.parentNode.style.display = 'none');
-  if (success === false) {
-    modal.classList.add('infected');
-  } else {
-    modal.classList.add('turn-off');
-  }
-  setTimeout(() => {
-    starts.forEach(oneStart => {
-      oneStart.onclick = () => {};
-      oneStart.parentNode.parentNode.style.display = 'none';
-    });
-    overlay.style.display = modal.style.display = 'none';
-    modal.className = '';
-    hideVariant();
-  }, 1000);
-
-  if (success) {
-    OG.spriteSaved(m);
-  } else if (success === false) {
-    OG.spriteLost(m);
   }
 };
 
