@@ -4,6 +4,7 @@ import OG from './gameInfo';
 let xy = {};
 
 const overlay = document.getElementById('screen_overlay');
+const content = overlay.querySelector('.content');
 const modal = document.getElementById('screen');
 const starts = Array.from(document.getElementsByClassName('start'));
 const shutdowns = Array.from(document.getElementsByClassName('shutdown'));
@@ -13,6 +14,11 @@ const topText = document.createElement('div');
 const cancelBtn = document.createElement('button');
 
 const okBtn = document.createElement('button');
+
+const icons = `💺 🔝 🚞 😁 😾 🚸 ☸ 🍛 🔖 🗃 🦁 💠 🛀 ♓ 🙎 🙀 🛃 💔 🐌 🐠 🌲 🗓 🐒 😑 🚏 🏺 🏭 🗝 🌼 🚩 🍾 🕢 🌁 🔱 🔘 📵 🕟 🦂 🚇 ❗ 🐱 🕋 📯 💓 😣 🏆 💅 👴 🦃 🚀 🐹
+ 😄 🚴 ⏸ ❎ 🕵 🎠 🏃 🍎 🍦 🏏 🌳 💜 🐈 👿 🔕 🕛 😈 🍒 ⛹ 🚚 🏢 🕌 💁 ⛪ 🔠 🌶 🏄 🌙 ♈ 🤒 📚 👳 🖱 🏉 📛 👄 🔗 🌈 😧 🀄 🗳 ⏩ 🌯 🎞 🙈 😗 🤐 🔀 ⛔ ⛄ ☘ 🐽 🌡 🔃 🌚 🏑
+ 🚼 🍈 🏊 👟 😀 📶 🕰 🐗 🙎 🏄 💁‍ 🙍 👎 👮 🕉 😹 🎖 😻 💚 👷 ✅ 🌗 🤕 🏤 👔 ⛰ 🙋 🗂 🚣 🎍 🏊 👩 🍄 👙 🚫 🙆 😅 🏞 💻 🏌 🙎‍ 🙏 🎫 🏄‍ 💆 💁‍ 👨 🚠 🔫 👦 👰 👃 🚧 👊
+ 👩‍ 💅 🛢 🚣‍ 🐕 😛`.split(' ');
 
 let interval = null;
 
@@ -114,11 +120,21 @@ const makeTimer = (m) => {
  * @param {ComputerMeta} m
  */
 const showPopup = (m) => {
-  console.log('showPopup', m);
   overlay.style.display = modal.style.display = 'block';
+  const numIcons = Math.round(Math.random() * 20);
+  let thisIcons = [];
+  for (let i = 0; i < numIcons; i++) {
+    const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+    thisIcons = thisIcons.concat([randomIcon, ' ']);
+    if (Math.random() > 0.8) {
+      thisIcons.push('<br />');
+    }
+  }
+  content.innerHTML = thisIcons.join('');
   const oneStart = starts[Math.floor(Math.random() * starts.length)];
   oneStart.parentNode.parentNode.style.display = 'block';
   const shutdown = oneStart.querySelector('.shutdown');
+
   function closeSuccessFn(event) {
     event.stopPropagation();
     hidePopup(m, true);

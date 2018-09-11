@@ -24,7 +24,7 @@ export const V_MAP = {
 export const sMap = [
   { i: 1, t: 30 },
   { i: 2, t: 20 },
-  { i: 3, t: 10 }
+  { i: 3, t: 9999 }
 ];
 
 const [h, t, f, i] = [1 / 2, 1 / 3, 1 / 4, 1 / 5];
@@ -36,11 +36,11 @@ const [h, t, f, i] = [1 / 2, 1 / 3, 1 / 4, 1 / 5];
 export const levels = [{
   // LEVEL 1
   // number of computers
-  num: 2,
+  num: 1,
   // speed of computers (%)
-  speeds: [1],
+  speeds: [0, 0, 1],
   // (%)
-  vars: [0,1]
+  vars: [0, 1]
 }, {
   // LEVEL 2
   num: 3,
@@ -54,6 +54,6 @@ export const levels = [{
 }, {
   // LEVEL 4
   num: 5,
-  speeds: [t,t,t],
-  vars: [0,t,t,t]
+  speeds: [t, t, t],
+  vars: [0, t, t, t]
 }];
