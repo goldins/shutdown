@@ -22,9 +22,12 @@ export const V_MAP = {
  * t: start timer
  */
 export const sMap = [
+  // slow
   { i: 1, t: 30 },
+  // medium
   { i: 2, t: 20 },
-  { i: 3, t: 9999 }
+  // fast
+  { i: 3, t: 10 }
 ];
 
 const [h, t, f, i] = [1 / 2, 1 / 3, 1 / 4, 1 / 5];
@@ -37,23 +40,53 @@ export const levels = [{
   // LEVEL 1
   // number of computers
   num: 1,
-  // speed of computers (%)
-  speeds: [0, 0, 1],
-  // (%)
-  vars: [0, 1]
+  // speeds (%)
+  speeds: [1],
+  // variants (%)
+  vars: [1]
 }, {
   // LEVEL 2
   num: 3,
-  speeds: [h, h],
-  vars: [1]
+  speeds: [1, 1],
+  vars: [f, f * 3]
 }, {
   // LEVEL 3
-  num: 3,
-  speeds: [1],
-  vars: [t, t + t]
+  num: 5,
+  speeds: [t, t, t],
+  vars: [f, f, f * 2]
 }, {
   // LEVEL 4
   num: 5,
-  speeds: [t, t, t],
-  vars: [0, t, t, t]
+  speeds: [h, h],
+  vars: [0, f, f * 2, f]
+}, {
+  // LEVEL 5
+  num: 1,
+  speeds: [1],
+  vars: [0, 0, 0, 0, 1]
+}, {
+  // LEVEL 6
+  num: 8,
+  speeds: [h, h],
+  vars: [0, f, f, f]
+}, {
+  // LEVEL 7
+  num: 5,
+  speeds: [h, h],
+  vars: [i, i, i, i, i]
+}, {
+  // LEVEL 8
+  num: 5,
+  speeds: [0, h, h],
+  vars: [0, f, f, f * 2]
+}, {
+  // LEVEL 9
+  num: 5,
+  speeds: [0, h, h],
+  vars: [0, 0, h, h]
+}, {
+  // LEVEL 10
+  num: 5,
+  speeds: [0, h, h],
+  vars: [t, 0, 0, t, t]
 }];

@@ -60,7 +60,7 @@ export const makeChat = (m) => {
   chat.style.position = 'absolute';
   chat.style.top = '60px';
   chat.style.width = '30vmin';
-  chat.innerHTML = '<ul><li>hey</li><li>u there</li><li>i miss u <3</li></ul>';
+  chat.innerHTML = '<ul><li>hey</li><li>u there</li><li>i miss u</li></ul>';
   const chatUl = chat.querySelector('ul');
   const chatField = document.createElement('input');
   chatField.type = 'text';
@@ -68,14 +68,15 @@ export const makeChat = (m) => {
   const chatSubmit = document.createElement('button');
   chat.appendChild(chatField);
   chat.appendChild(chatSubmit);
-  chatSubmit.innerText = 'send';
+  chatSubmit.innerText = '>';
   const addChat = () => {
     const v = chatField.value;
     chatField.value = '';
     const newChat = document.createElement('li');
+    newChat.style.textAlign = 'right';
     newChat.innerText = v;
     chatUl.appendChild(newChat);
-    if (v.toLowerCase().indexOf('love you') >= 0) {
+    if (v.match(/l(ove|uv) (you|u)/ig)) {
       OG.updateScoreBonus(m);
     }
   };

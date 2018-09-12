@@ -94,8 +94,8 @@ export const showInfo = (m) => {
   infoHtml.style.display = 'block';
   console.log(m.s);
   const infoOkay = document.createElement('button');
-  infoHtml.innerHTML = `I'm a ${m.s === 0 ? 'slow' : m.s === 1 ? 'medium' : 'fast'} computer.`;
-  infoOkay.innerText = 'Cancel';
+  infoHtml.innerHTML = `I'm a ${m.s === 0 ? 'slow' : m.s === 1 ? 'medium' : 'fast'} computer.<br/>`;
+  infoOkay.innerText = 'Okay';
   infoHtml.appendChild(infoOkay);
   infoOkay.onclick = (e) => {
     e.stopPropagation();
@@ -104,10 +104,7 @@ export const showInfo = (m) => {
   };
 };
 
-/**
- * @param {ComputerMeta} m
- */
-const showPopup = (m) => {
+export const getRandomIcons = () => {
   const numIcons = Math.round(Math.random() * 20);
   const thisIcons = [];
   for (let i = 0; i < numIcons; i++) {
@@ -117,7 +114,14 @@ const showPopup = (m) => {
       thisIcons.push('<br />');
     }
   }
-  content.innerHTML = thisIcons.join(' ');
+  return thisIcons;
+};
+
+/**
+ * @param {ComputerMeta} m
+ */
+const showPopup = (m) => {
+  content.innerHTML = `<p class="apps">Applications</p>${getRandomIcons().join(' ')}`;
   const oneStart = starts[Math.floor(Math.random() * starts.length)];
   const shutdown = oneStart.querySelector('.shutdown');
   const info = oneStart.querySelector('.info');

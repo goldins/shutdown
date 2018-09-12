@@ -1,6 +1,7 @@
 import '../lib/kontra';
 import OG from './gameInfo';
 import { levels } from './levels';
+import { getRandomIcons } from './computer';
 
 const canvas = document.getElementsByTagName('canvas')[0];
 canvas.width = document.body.clientWidth;
@@ -10,7 +11,8 @@ const overlay = document.getElementById('end_game_overlay');
 const popup = document.getElementById('end_game');
 
 overlay.style.display = popup.style.display = 'block';
-popup.innerHTML = `Please turn computers off<br/>before they are infected<br/><br/>Click or anywhere tap to start`;
+popup.innerHTML = `Please turn computers off<br/>before they are infected<br/><br/>Click or tap anywhere to start`;
+popup.innerHTML += `<br /><br /><p class="start-icons" style="text-align: left; padding-left: 10px;">${getRandomIcons().join(' ')}</p>`;
 
 kontra.init();
 
@@ -64,6 +66,7 @@ function start() {
             popup.innerHTML = `<p>Thank you for ${ratio < 0.5 ? 'trying to save' : 'saving'} us.</p>`;
             popup.innerHTML += `<p>Of ${total} computers<br/> you saved ${won}.`;
             popup.innerHTML += `<br />That's a ${Math.round(ratio * 100)}% success rate.`;
+            popup.innerHTML += OG.chatWins ? `<br />You got ${OG.chatWins} bonus${ OG.chatWins > 1 ? 'es' : ''}.` : '';
             popup.innerHTML += `<br/><br /><span onclick="window.location.reload()">Play again?</span>`;
             overlay.style.display = popup.style.display = 'block';
           } else {
